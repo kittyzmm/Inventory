@@ -76,10 +76,24 @@ int main() {
         }
 
         case 3: printInventory(inventory); break;
+        case 4: sortByType(inventory); cout << "Отсортировано по типу!\n"; printInventory(inventory); break;
+        case 5: sortByLevel(inventory); cout << "Отсортировано по уровню!\n"; printInventory(inventory); break;
+        case 6: {
+            string type;
+            cout << "Тип для фильтрации: "; cin.ignore(); getline(cin, type);
+            vector<Item> f = filterByType(inventory, type);
+            if (!f.empty()) {
+                cout << "Предметы типа '" << type << "':\n";
+                printInventory(f);
+            }
+            else {
+                cout << "Нет предметов данного типа!\n";
+            }
+            break;
+        }
         case 7: break;
         default: cout << "Неверный выбор!\n"; break;
         }
     } while (choice != 7);
-
     return 0;
 }
