@@ -27,7 +27,19 @@ void printInventory(vector<Item> inv) {
     for (auto& i : inv)
         cout << "Название: " << i.name << ", Тип: " << i.type << ", Уровень: " << i.level << endl;
 }
+void sortByLevel(vector<Item>& inv) {
+    sort(inv.begin(), inv.end(), [](Item& a, Item& b) { return a.level < b.level; });
+}
 
+void sortByType(vector<Item>& inv) {
+    sort(inv.begin(), inv.end(), [](Item& a, Item& b) { return a.type < b.type; });
+}
+
+vector<Item> filterByType(vector<Item> inv, string type) {
+    vector<Item> f;
+    copy_if(inv.begin(), inv.end(), back_inserter(f), [&type](Item& i) { return i.type == type; });
+    return f;
+}
 void showMenu() {
     cout << "\n--- Меню инвентаря ---\n"
         << "1. Добавить предмет\n"
