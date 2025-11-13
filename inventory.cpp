@@ -39,3 +39,47 @@ void showMenu() {
         << "7. Выход\n"
         << "Выберите действие (1-7): ";
 }
+
+int main() {
+    vector<Item> inventory;
+    setlocale(LC_ALL, "");
+
+    addItem(inventory, "Клинок", "оружие", 8);
+    addItem(inventory, "Доспехи", "броня", 6);
+    addItem(inventory, "Эликсир", "зелье", 3);
+    addItem(inventory, "Арбалет", "оружие", 9);
+    addItem(inventory, "Щит", "броня", 7);
+    addItem(inventory, "Зелье невидимости", "зелье", 5);
+
+    int choice;
+    do {
+        showMenu();
+        cin >> choice;
+
+        switch (choice) {
+        case 1: {
+            string name, type; int level;
+            cout << "Название: "; cin.ignore(); getline(cin, name);
+            cout << "Тип: "; getline(cin, type);
+            cout << "Уровень: "; cin >> level;
+            addItem(inventory, name, type, level);
+            cout << "Предмет добавлен!\n";
+            break;
+        }
+        case 2: {
+            string name;
+            cout << "Название для удаления: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            getline(cin, name);
+            cout << (removeItem(inventory, name) ? "Предмет удалён!\n" : "Предмет не найден!\n");
+            break;
+        }
+
+        case 3: printInventory(inventory); break;
+        case 7: break;
+        default: cout << "Неверный выбор!\n"; break;
+        }
+    } while (choice != 7);
+
+    return 0;
+}
